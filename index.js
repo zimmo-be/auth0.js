@@ -24,6 +24,9 @@ var use_jsonp         = require('./lib/use_jsonp');
 
 var SilentAuthenticationHandler = require('./lib/SilentAuthenticationHandler');
 
+// make it possible to override the reqwest function
+window.reqwestx = reqwest;
+
 /**
  * Check if running in IE.
  *
@@ -330,7 +333,7 @@ Auth0.prototype._getUserInfo = function (profile, id_token, callback) {
     });
   }
 
-  return reqwest({
+  return reqwestx({
     url:          same_origin(protocol, domain) ? endpoint : url,
     method:       'post',
     type:         'json',
@@ -378,7 +381,7 @@ Auth0.prototype.getUserInfo = function (access_token, callback) {
     callback(error);
   };
 
-  return reqwest({
+  return reqwestx({
     url:          same_origin(protocol, domain) ? endpoint : url,
     method:       'post',
     type:         'json',
@@ -446,7 +449,7 @@ Auth0.prototype.validateUser = function (options, callback) {
     });
   }
 
-  reqwest({
+  reqwestx({
     url:     same_origin(protocol, domain) ? endpoint : url,
     method:  'post',
     type:    'text',
@@ -653,7 +656,7 @@ Auth0.prototype.signup = function (options, callback) {
     });
   }
 
-  reqwest({
+  reqwestx({
     url:     same_origin(protocol, domain) ? endpoint : url,
     method:  'post',
     type:    'html',
@@ -709,7 +712,7 @@ Auth0.prototype.changePassword = function (options, callback) {
     });
   }
 
-  reqwest({
+  reqwestx({
     url:     same_origin(protocol, domain) ? endpoint : url,
     method:  'post',
     type:    'html',
@@ -1284,7 +1287,7 @@ Auth0.prototype.loginWithResourceOwner = function (options, callback) {
     });
   }
 
-  reqwest({
+  reqwestx({
     url:     same_origin(protocol, domain) ? endpoint : url,
     method:  'post',
     type:    'json',
@@ -1334,7 +1337,7 @@ Auth0.prototype.loginWithSocialAccessToken = function (options, callback) {
     });
   }
 
-  reqwest({
+  reqwestx({
     url:     same_origin(protocol, domain) ? endpoint : url,
     method:  'post',
     type:    'json',
@@ -1468,7 +1471,7 @@ Auth0.prototype.loginWithUsernamePassword = function (options, callback) {
     throw error;
   }
 
-  reqwest({
+  reqwestx({
     url:     same_origin(protocol, domain) ? endpoint : url,
     method:  'post',
     type:    'html',
@@ -1569,7 +1572,7 @@ Auth0.prototype._verify = function(options, callback) {
     });
   }
 
-  return reqwest({
+  return reqwestx({
     url:          same_origin(protocol, domain) ? endpoint : url,
     method:       'post',
     headers:      this._getClientInfoHeader(),
@@ -1697,7 +1700,7 @@ Auth0.prototype.getDelegationToken = function (options, callback) {
     });
   }
 
-  reqwest({
+  reqwestx({
     url:     same_origin(protocol, domain) ? endpoint : url,
     method:  'post',
     type:    'json',
@@ -1873,7 +1876,7 @@ Auth0.prototype.getSSOData = function (withActiveDirectories, cb) {
     data = {ldaps: 1, client_id: this._clientID};
   }
 
-  return reqwest({
+  return reqwestx({
     url:             sameOrigin ? endpoint : url,
     method:          'get',
     type:            'json',
@@ -1990,7 +1993,7 @@ Auth0.prototype.startPasswordless = function (options, callback) {
     });
   }
 
-  return reqwest({
+  return reqwestx({
     url:          same_origin(protocol, domain) ? endpoint : url,
     method:       'post',
     type:         'json',
@@ -2059,7 +2062,7 @@ Auth0.prototype.getUserCountry = function(cb) {
     return;
   }
 
-  reqwest({
+  reqwestx({
     url: same_origin(protocol, domain) ? endpoint : url,
     method: "get",
     type: "json",
